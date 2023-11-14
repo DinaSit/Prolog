@@ -36,19 +36,19 @@ class predicates
     государства_с_языком : (lang Language, name CountryName) nondeterm.
     языки_в_части : (region Region, lang Language) nondeterm.
     культура_в_государстве : (id CountryID, id CultureID) nondeterm.
-    sum_list : (list List, integer Acc, integer Sum) nondeterm.
-    length_list : (list List, integer Acc, integer Length) nondeterm.
+    sum_list : (list List, integer Sum) nondeterm.
+    length_list : (list List, integer Length) nondeterm.
 
 clauses
-    sum_list([], Acc, Acc).
-    sum_list([Head | Tail], Acc, Sum) :-
-        NewAcc = Acc + Head,
-        sum_list(Tail, NewAcc, Sum).
+    sum_list([], Sum).
+    sum_list([Head | Tail], Sum) :-
+        sum_list(Tail, Sum1),
+        Sum = Sum1 + Head.
 
-    length_list([], Acc, Acc).
-    length_list([_ | Tail], Acc, Length) :-
-        NewAcc = Acc + 1,
-        length_list(Tail, NewAcc, Length).
+    length_list([], Length).
+    length_list([_ | Tail], Length) :-
+        length_list(Tail, Length1),
+        Length = Length1 + 1.
 
     столица_с_макс_населением(Region, CapitalName, Population) :-
         представление(CapitalID, CountryID),
@@ -80,7 +80,7 @@ clauses
                 государство(_, _, Region, Pop, _, _),
                 столица(_, _, Pop, _)
             ],
-        sum_list(Pops, 0, Population).
+        sum_list(Pops, Population).
 
     средняя_площадь_в_части(Region, Average) :-
         Areas =
@@ -88,8 +88,8 @@ clauses
                 государство(_, _, Region, _, Area, _),
                 столица(_, _, _, Area)
             ],
-        length_list(Areas, 0, Count),
-        sum_list(Areas, 0, Sum),
+        length_list(Areas, Count),
+        sum_list(Areas, Sum),
         Count > 0,
         Average = Sum / Count.
 
@@ -99,8 +99,8 @@ clauses
                 государство(_, _, Region, Population, _, _),
                 столица(_, _, Population, _)
             ],
-        length_list(Populations, 0, Count),
-        sum_list(Populations, 0, Sum),
+        length_list(Populations, Count),
+        sum_list(Populations, Sum),
         Average = Sum / Count.
 
     количество_государств_с_населением_больше(Region, Threshold, Count) :-
@@ -110,7 +110,7 @@ clauses
                 столица(_, _, Population, _),
                 Population > Threshold
             ],
-        length_list(Countries, 0, Count).
+        length_list(Countries, Count).
 
     количество_государств_с_населением_меньше(Region, Threshold, Count) :-
         Countries =
@@ -119,7 +119,7 @@ clauses
                 столица(_, _, Population, _),
                 Population < Threshold
             ],
-        length_list(Countries, 0, Count).
+        length_list(Countries, Count).
 
     столицы_в_части(Region, CapitalName) :-
         представление(CapitalID, CountryID),
