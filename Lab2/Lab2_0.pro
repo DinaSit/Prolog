@@ -12,6 +12,8 @@ domains
     lang = string.
     info = string.
     list = integer*.
+    sum = integer.
+    length = integer.
 
 class facts - geography
     столица : (id ID, name Name, population Population, area Area).
@@ -36,16 +38,16 @@ class predicates
     государства_с_языком : (lang Language, name CountryName) nondeterm.
     языки_в_части : (region Region, lang Language) nondeterm.
     культура_в_государстве : (id CountryID, id CultureID) nondeterm.
-    sum_list : (list List, integer Sum) nondeterm.
-    length_list : (list List, integer Length) nondeterm.
+    sum_list : (list List, sum Sum) determ.
+    length_list : (list List, length Length) determ.
 
 clauses
-    sum_list([], Sum).
+    sum_list([], 0).
     sum_list([Head | Tail], Sum) :-
         sum_list(Tail, Sum1),
         Sum = Sum1 + Head.
 
-    length_list([], Length).
+    length_list([], 0).
     length_list([_ | Tail], Length) :-
         length_list(Tail, Length1),
         Length = Length1 + 1.
