@@ -90,7 +90,6 @@ clauses
             ],
         length_list(Areas, Count),
         sum_list(Areas, Sum),
-        Count > 0,
         Average = Sum / Count.
 
     среднее_население_в_части(Region, Average) :-
