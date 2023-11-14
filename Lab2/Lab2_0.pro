@@ -38,19 +38,17 @@ class predicates
     государства_с_языком : (lang Language, name CountryName) nondeterm.
     языки_в_части : (region Region, lang Language) nondeterm.
     культура_в_государстве : (id CountryID, id CultureID) nondeterm.
-    sum_list : (list List, sum Sum) determ.
-    length_list : (list List, length Length) determ.
+    sum_list : (list List, sum Sum) procedure (i, o).
+    length_list : (list, integer) procedure (i, o).
 
 clauses
     sum_list([], 0).
-    sum_list([Head | Tail], Sum) :-
-        sum_list(Tail, Sum1),
-        Sum = Sum1 + Head.
+    sum_list([Head | Tail], Sum + Head) :-
+        sum_list(Tail, Sum1).
 
     length_list([], 0).
-    length_list([_ | Tail], Length) :-
-        length_list(Tail, Length1),
-        Length = Length1 + 1.
+    length_list([_ | Tail], Length + 1) :-
+        length_list(Tail, Length).
 
     столица_с_макс_населением(Region, CapitalName, Population) :-
         представление(CapitalID, CountryID),
