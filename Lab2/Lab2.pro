@@ -77,45 +77,37 @@ clauses
 
 clauses
     run() :-
-        file::consult("../base.txt", accessories),
+        file::consult("../base.txt", geography),
         fail.
-
+    run() :-
         % Пример использования правил
-        writeln("Население страны с ID 13:"),
+        write("Население страны с ID 13:"),
         население_страны(13, Population),
-        writeln(Population),
-
-        writeln("\nКоличество столиц в регионе 'Азия':"),
+        write(Population),
+        write("\nКоличество столиц в регионе 'Азия':"),
         столицы_в_регионе('Азия', Count),
-        writeln(Count),
-
-        writeln("\nОбщее население в регионе 'Азия':"),
+        write(Count),
+        write("\nОбщее население в регионе 'Азия':"),
         общее_население('Азия', TotalPopulation),
-        writeln(TotalPopulation),
-
-        writeln("\nКоличество стран в регионе 'Африка':"),
+        write(TotalPopulation),
+        write("\nКоличество стран в регионе 'Африка':"),
         страны_в_регионе('Африка', Count),
-        writeln(Count),
-
-        writeln("\nСреднее население в регионе 'Азия':"),
+        write(Count),
+        write("\nСреднее население в регионе 'Азия':"),
         среднее_население_региона('Азия', Average),
-        writeln(Average),
-
-        writeln("\nСтолицы и регионы:"),
+        write(Average),
+        write("\nСтолицы и регионы:"),
         столицы_и_регионы(Capital, Region),
-        writeln(Capital, " - ", Region),
-
-        writeln("\nПредставленные страны и их регионы:"),
+        write(Capital, " - ", Region),
+        write("\nПредставленные страны и их регионы:"),
         представленные_страны(CapitalID, Region, Count),
-        writeln("Страны: ", Count),
-
-        writeln("\nСреднее население государств:"),
+        write("Страны: ", Count),
+        write("\nСреднее население государств:"),
         среднее_население_государств(Average),
-        writeln(Average).
-
-clauses
+        write(Average),
+        fail.
     run().
-    
+
 end implement main
 
 goal
