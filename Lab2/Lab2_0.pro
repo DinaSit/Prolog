@@ -146,9 +146,9 @@ clauses
         государства_с_языком(Language, _),
         государство(_, _, Region, _, _, Language).
 
-    культура_в_государстве(CountryID, CultureID) :-
+    культура_в_государстве(CountryID, Info) :-
         представление(_, CountryID),
-        культура(CultureID, _).
+        культура(CountryID, Info).
 
 clauses
     run() :-
@@ -222,9 +222,9 @@ clauses
         fail.
 
     run() :-
-        write("\nГосударства, где говорят на русском:"),
-        государства_с_языком('Русский', RussianCountries),
-        write(RussianCountries),
+        write("\nГосударства, где говорят на Испанском:"),
+        государства_с_языком('Испанский', SpainCountries),
+        write(SpainCountries),
         fail.
 
     run() :-
@@ -234,8 +234,8 @@ clauses
         fail.
 
     run() :-
-        write("\nКультура в России:"),
-        культура_в_государстве(1, CultureID),
+        write("\nКультура в Турцииии:"),
+        культура_в_государстве(11, CultureID),
         write(CultureID),
         fail.
 
